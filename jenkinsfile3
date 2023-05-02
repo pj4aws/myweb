@@ -15,16 +15,16 @@ pipeline{
                 sh "mv target/*.war target/myweb.war"
             }
         }
-        stage("deploy -dev"){
-              sshagent(['tomcat-new']) {
-                   sh """
-                      scp -o StrictHostKeyChecking=no target/myweb.war ubuntu@172.31.23.73:/opt/tomcat8/webapps
-                      shh ubuntu@172.31.23.73:/opt/tomcat8/bin/shutdown.sh
-                      shh ubuntu@172.31.23.73:/opt/tomcat8/bin/startup.sh
-                      
-                      
-                   """
-           }
-         }
+        stage("deploy-dev"){
+        sshagent(['mytomcat']) {
+           sh """
+                scp -o StrictHostKeyChecking=no target/myweb.war ubuntu@172.31.23.73:/opt/tomcat8/webapps
+                ssh ubuntu@172.31.23.73:/opt/tomcat8/bin/shutdown.sh
+                ssh ubuntu@172.31.23.73:/opt/tomcat8/bin/startup.sh
+           """
+        }
+        
+        
+        }
     }
 }
