@@ -1,6 +1,6 @@
 pipeline{
     agent any
-    enviornment{
+    environnment{
         PATH = "/opt/apache-maven-3.9.1/bin:$PATH"
     }
     stages{
@@ -9,7 +9,7 @@ pipeline{
                 git 'https://github.com/pj4aws/myweb.git'
             }
         }
-        stage("maven"){
+        stage("Maven Build"){
             steps{
                 sh "mvn clean package"
             }
